@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/juanmartinezaranda/windowslogger-juanlaara/blob/main/docs/sensor-inventory.schema.json",
+  "title": "Windows Logger sensor inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "capturedAtUtc",
+    "operatingSystem",
+    "architecture",
+    "provider",
+    "hardware",
+    "errors",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "capturedAtUtc": { "type": "string", "format": "date-time" },
+    "operatingSystem": { "type": "string" },
+    "architecture": { "type": "string" },
+    "provider": { "type": "string" },
+    "hardware": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [ "identifier", "name", "type", "sensors" ],
+        "properties": {
+          "identifier": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "sensors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [ "identifier", "name", "type", "value", "unit", "availability", "provider", "timestampUtc", "minimum", "maximum" ],
+              "properties": {
+                "identifier": { "type": "string" },
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "value": { "type": [ "number", "null" ] },
+                "unit": { "type": "string" },
+                "availability": { "enum": [ "available", "unavailable", "invalid", "error" ] },
+                "provider": { "type": "string" },
+                "timestampUtc": { "type": "string", "format": "date-time" },
+                "minimum": { "type": [ "number", "null" ] },
+                "maximum": { "type": [ "number", "null" ] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [ "provider", "hardware", "errorType", "message", "timestampUtc" ],
+        "properties": {
+          "provider": { "type": "string" },
+          "hardware": { "type": [ "string", "null" ] },
+          "errorType": { "type": "string" },
+          "message": { "type": "string" },
+          "timestampUtc": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}
