@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorDiscovery", "src\SensorDiscovery\SensorDiscovery.csproj", "{03D4D261-C2D1-4E56-B7ED-835DDF3B8A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsLogger.Core", "src\WindowsLogger.Core\WindowsLogger.Core.csproj", "{7434BC2B-6D08-459E-9FE1-FD5B2465BC47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsLogger.Core.Tests", "tests\WindowsLogger.Core.Tests\WindowsLogger.Core.Tests.csproj", "{A66563BE-B670-4435-8C77-8BB1C3E6457D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03D4D261-C2D1-4E56-B7ED-835DDF3B8A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D4D261-C2D1-4E56-B7ED-835DDF3B8A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D4D261-C2D1-4E56-B7ED-835DDF3B8A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D4D261-C2D1-4E56-B7ED-835DDF3B8A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7434BC2B-6D08-459E-9FE1-FD5B2465BC47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7434BC2B-6D08-459E-9FE1-FD5B2465BC47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7434BC2B-6D08-459E-9FE1-FD5B2465BC47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7434BC2B-6D08-459E-9FE1-FD5B2465BC47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A66563BE-B670-4435-8C77-8BB1C3E6457D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A66563BE-B670-4435-8C77-8BB1C3E6457D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A66563BE-B670-4435-8C77-8BB1C3E6457D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A66563BE-B670-4435-8C77-8BB1C3E6457D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
