@@ -1,0 +1,16 @@
+name: Portable tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core-tests:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet restore tests/WindowsLogger.Core.Tests/WindowsLogger.Core.Tests.csproj
+      - run: dotnet test tests/WindowsLogger.Core.Tests/WindowsLogger.Core.Tests.csproj --configuration Release --no-restore
