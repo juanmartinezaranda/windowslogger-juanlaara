@@ -2,6 +2,17 @@
 
 This repository contains a Windows sensor-discovery utility plus a portable core for inventory data and JSON serialization. Continuous logging, Windows event collection, incidents, and a dashboard are still pending. It never invents readings: the report contains only hardware and sensors returned by LibreHardwareMonitor on the machine where it runs.
 
+## Download the project from GitHub
+
+To get the project onto your Windows laptop without installing Git:
+
+1. Open the [Windows Logger repository](https://github.com/juanmartinezaranda/windowslogger-juanlaara).
+2. Select **Code**, then **Download ZIP**.
+3. When the download finishes, right-click the ZIP file in Downloads and select **Extract All**.
+4. Open the extracted `windowslogger-juanlaara-main` folder. This folder contains the solution and source files.
+
+This downloads the project source code; it is not a ready-to-run application. To build and run the sensor discovery utility, follow the Windows instructions below. You do not need to install or use .NET on your Mac to download the project.
+
 ## Architecture and boundaries
 
 - `src/SensorDiscovery`: Windows-targeted .NET console executable. It opens LibreHardwareMonitor, enables CPU/GPU/memory/motherboard/controller/storage/network discovery, updates each device, and writes a timestamped JSON inventory.
@@ -13,13 +24,9 @@ This repository contains a Windows sensor-discovery utility plus a portable core
 - Machine-dependent sensor discovery stays in the provider adapter. The report schema is ordinary JSON and can be inspected on macOS.
 - A WPF/MVVM dashboard, logger, SQLite, Windows Event Log, NVIDIA-specific NVAPI integration, and incident correlation are deliberately pending.
 
-## Environment checked for this phase
+## Build and run it on your Windows laptop
 
-Development host: macOS 26.6, Apple Silicon (arm64). Git 2.55.0 is available. The .NET SDK is not installed, so restore/build/tests could not be run in this environment. Windows hardware discovery cannot be validated on macOS. The project targets .NET 10 LTS and pins LibreHardwareMonitorLib 0.9.6 (stable package) rather than a prerelease.
-
-## First test on the Windows laptop
-
-Install the .NET 10 SDK on the Windows 10/11 test machine. In PowerShell, from this repository directory:
+After extracting the ZIP, install the .NET 10 SDK on the Windows 10/11 laptop. Open PowerShell in the extracted `windowslogger-juanlaara-main` folder. One way is to open that folder in File Explorer, select the address bar, type `powershell`, and press Enter. Then run:
 
 ```powershell
 dotnet --info
@@ -28,13 +35,9 @@ dotnet build .\WindowsLogger.sln -c Release
 dotnet run --project .\src\SensorDiscovery\SensorDiscovery.csproj -c Release -- --output .\sensor-reports\rtx-5050-inventory.json
 ```
 
-Open `sensor-reports\rtx-5050-inventory.json` and search the hardware list for the NVIDIA GPU. The exact sensors depend on laptop firmware, GPU/driver support, and LibreHardwareMonitor's support. A missing hotspot, power, fan, or VRAM sensor means it was not exposed in that run; it is not represented as zero. Keep the report with machine model, BIOS version, NVIDIA driver version, and whether the program was elevated. If access-denied errors appear, rerun once from an elevated PowerShell only to compare access; do not make elevation the default. This app does not claim to identify the RTX 5050's capabilities without that actual report.
+The report is saved in `sensor-reports` inside the extracted project folder. Open `sensor-reports\rtx-5050-inventory.json` and search the hardware list for the NVIDIA GPU. The exact sensors depend on laptop firmware, GPU/driver support, and LibreHardwareMonitor's support. A missing hotspot, power, fan, or VRAM sensor means it was not exposed in that run; it is not represented as zero. Keep the report with the machine model, BIOS version, NVIDIA driver version, and whether the program was run as administrator. If access-denied errors appear, run it once from an elevated PowerShell only to compare access; do not make elevation the default. This app does not claim to identify the RTX 5050's capabilities without that actual report.
 
-Run portable schema tests with `dotnet test .\tests\WindowsLogger.Core.Tests\WindowsLogger.Core.Tests.csproj -c Release`. The tests exercise serialization behavior only; they do not simulate or claim hardware readings. On Windows, the commands above verify restore/build and produce the genuine hardware report. Do not count Phase 1 as verified until the tests pass and the generated report is inspected.
-
-## macOS development
-
-Install the .NET 10 SDK, then run `dotnet test tests/WindowsLogger.Core.Tests/WindowsLogger.Core.Tests.csproj -c Release`. The portable core and its tests can run on macOS. The Windows-targeted project sets `EnableWindowsTargeting` to allow cross-targeted compilation, but the discovery executable requires Windows and cannot be run on macOS. Do not use mocked readings to substitute for hardware results.
+To run the portable serialization tests on Windows, use `dotnet test .\tests\WindowsLogger.Core.Tests\WindowsLogger.Core.Tests.csproj -c Release`. These tests do not simulate or claim hardware readings. Do not count Phase 1 as verified until the tests pass and the generated report is inspected.
 
 ## Publish on Windows
 
@@ -67,7 +70,8 @@ The report is local and contains hardware names, sensor labels/readings, machine
 - [x] Initialize Git and create the Phase 1 solution structure and instructions.
 - [x] Implement Windows sensor inventory collection/report generation using LibreHardwareMonitor.
 - [x] Separate the portable report schema/JSON layer and add unit tests plus macOS/Windows CI workflows.
-- [ ] Restore/build/test on .NET 10 (SDK unavailable on this Mac).
+- [ ] Download the source ZIP from GitHub and extract it on the Windows laptop.
+- [ ] Restore/build/test with the .NET 10 SDK on Windows.
 - [ ] Run on Windows and inspect genuine RTX 5050 Laptop GPU sensor exposure.
 - [ ] Phase 2 continuous logging, persistence, rolling history, and event correlation.
 - [ ] Later phases: workload tracking, incidents/exports, WPF dashboard, optional tracing.
